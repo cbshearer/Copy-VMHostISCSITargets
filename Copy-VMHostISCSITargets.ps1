@@ -7,7 +7,7 @@
     $TargetVMHost = get-vmhost your-esxi02.your.local
     $TargetVMhbas = $TargetVMHost | Get-VMHostHba -type IScsi # -Device vmhba64 ## Uncomment the device parameter and specify which device if you want to only add targets to one device
         ## List your HBAS with these commands if you only want to target a specific HBA and not all of your HBAs: 
-            ## $TargetEsxCli = $TargetVMHost | Get-EsxCli
+            ## $TargetEsxCli = get-vmhost your-esxi01.your.local | Get-EsxCli
             ## $targetesxcli.iscsi.adapter.list()
     $Result       = $null
     $TargetsToAdd = @()
