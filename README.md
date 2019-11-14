@@ -1,4 +1,4 @@
-Copy all Static iSCSI targets from one host to all HBAs another
+Copy all Static iSCSI targets from one host to all HBAs another using PowerShell / PowerCLI
 
 I ran into a situation where I needed to replace the HBAs on my hosts and had a lot of static iSCSI targets that needed to be added to each HBA on a bunch of servers. I created this script which gets all HBAs on a given host and puts them on all of the HBAs on another.
 
