@@ -69,27 +69,29 @@ foreach ($TargetVMHba in $TargetVMhbas) ## For each Target HBA
 
 if (!($n)) {exit} ## exit if we didn't add anything
 
-Function Invoke-ScanAndRefresh 
-    {
-        Write-Host "Rescanning all HBAs."
-            $TargetVMHost | Get-VMHostStorage -RescanAllHba | Out-Null
+## Now that they have been added, we will define a function to scan HBAs/VMFS volumes and refresh storage. 
+    Function Invoke-ScanAndRefresh 
+        {
+            Write-Host "Rescanning all HBAs."
+                $TargetVMHost | Get-VMHostStorage -RescanAllHba | Out-Null
 
-        Write-Host "Rescanning VMFS volumes."
-            $TargetVMHost | Get-VMHostStorage -RescanVmfs   | Out-Null
+            Write-Host "Rescanning VMFS volumes."
+                $TargetVMHost | Get-VMHostStorage -RescanVmfs   | Out-Null
 
-        Write-Host "Refreshing storage."
-            $TargetVMHost | Get-VMHostStorage -Refresh      | Out-Null
-    }
+            Write-Host "Refreshing storage."
+                $TargetVMHost | Get-VMHostStorage -Refresh      | Out-Null
+        }
 
-Function Invoke-Menu
-    {
-    write-host "============="
-    write-host -f cyan "Please make a selection."
-    $value = read-host "
-        S: Scan HBAs & Volumes and Refresh host storage`
-        X: Exit`
+## Define a funtion to call a menu where we can choose to scan & refresh or exit.
+    Function Invoke-Menu
+        {
+        write-host "============="
+        write-host -f cyan "Please make a selection."
+        $value = read-host "
+            S: Scan HBAs & Volumes and Refresh host storage`
+            X: Exit`
 
-Choose wisely (S/X)"
+    Choose wisely (S/X)"
             Switch ($value)
                 {
                 'S' {Invoke-ScanAndRefresh
@@ -97,7 +99,7 @@ Choose wisely (S/X)"
                 'X' {exit}
                 default {Invoke-Menu}
                 }
-    }
+        }
 
-## Run the menu to give the option to scan HBAs & Volumes and Refresh host storage 
+## Run the menu to give the option to scan HBAs & Volumes and Refresh host storage or exit
     Invoke-Menu
