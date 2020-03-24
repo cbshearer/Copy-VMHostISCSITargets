@@ -1,4 +1,4 @@
-﻿## Add Snap-in and connect to your vCenter Server
+## Add Snap-in, set TLS version,  and connect to your vCenter Server
     Add-PSSnapin VMware.VimAutomation.Core -ErrorAction SilentlyContinue
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Connect-VIServer vCenterServer.your.local
